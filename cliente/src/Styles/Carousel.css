@@ -1,0 +1,35 @@
+body {
+  background-color: #e5f8ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.main-slide {
+  padding-top: 10px;
+}
+
+.carousel .slider-wrapper {
+  width: 60%;
+}
+
+.carousel .thumb {
+  width: 5%;
+  height: 50px;
+}
+
+.carousel {
+  text-align: center;
+}
+
+.carroimg {
+  width: 250px;
+  height: 300px;
+}
+
+.legend:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+/*# sourceMappingURL=Carousel.css.map */

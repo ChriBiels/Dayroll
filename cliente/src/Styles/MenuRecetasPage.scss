@@ -1,0 +1,39 @@
+@import "./VariablesSass/Variables.scss";
+
+.butCenter{
+   background-color: $darklight
+}
+
+.filterbar{
+    background-color: $darklight;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+}
+
+.recetaContainer{
+    background-color: $cremaAzul;
+}
+
+
+.generalContainer{
+    background-color: $darklight;
+}
+
+.filterbutton{
+    width: 90px;
+    height: 40px;
+    background-color: $happyGrey;
+    font-weight: bold;
+}
+.filterbutton:hover{
+    background-color: $sadlyGrey;
+}
+
+.addButton{
+    background-color: $happyGrey;
+    font-weight: bold;
+}
+.addButton:hover{
+    background-color: $sadlyGrey;
+}

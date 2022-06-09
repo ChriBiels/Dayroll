@@ -1,0 +1,61 @@
+
+
+.App{
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.container{
+display: flex;
+flex-direction: column;
+width: 100%;
+justify-content: center;
+align-items: center;
+}
+
+.container input{
+  width: 300px;
+  height: 20px;
+}
+
+.general{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.alert{
+  width: 100%;
+}
+
+.menuheader{
+  background-color:rgb(46, 60, 63);
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-decoration: solid;
+  font-size: 20px;
+  color: aliceblue;
+
+}
+
+.menuheader a{
+  color: aliceblue;
+}
+
+.menuheader a:hover{
+  color: green
+}
+
+.menuheader img{
+  cursor: pointer;
+  transition: all;
+}
+
+.menuheader img:hover{
+  transform: scale(1.2);
+}
+

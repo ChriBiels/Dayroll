@@ -1,0 +1,36 @@
+@import "./VariablesSass/Variables.scss";
+
+.box{
+    color: rgb(24, 24, 24);
+}
+
+.defaultbutton{
+    background-color: $defaultButtonColor;
+    color: $defaultButtonTextColor;
+}
+.defaultbutton:hover{
+    background-color: $changeButtonColor;
+}
+
+.card{
+    background-color: $defaultCardColor;
+    padding: 10px;
+    
+}
+
+.card:hover{
+    background-color: $changeCardColor;
+}
+
+.selectbox{
+    width: 189px;
+    
+   
+}
+.galle{
+    background-color: $darklight;
+}
+.divisor{
+background-color: #171b22;
+}
+

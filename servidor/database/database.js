@@ -1,0 +1,7 @@
+import { Sequelize } from "sequelize";
+const db = new Sequelize("dayroll",'root', '1234',{
+    host:"localhost",
+    dialect:"mysql"
+})
+
+export default db

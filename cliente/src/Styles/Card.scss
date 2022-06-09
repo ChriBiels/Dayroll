@@ -1,0 +1,71 @@
+@import "./VariablesSass/Variables.scss";
+
+.cardDesign{
+    background-color: white;
+    padding: 0px;
+    margin: 0px;
+}
+
+.title{
+    position: relative;
+    z-index: 1;
+    font-size: 1.3rem;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
+    text-align: center;
+
+}
+
+.cardTitle{
+    font-weight: bold;
+}
+
+.scroll{
+    overflow: auto;
+    height: 300px;
+    overflow: hidden;
+
+}
+.onlyscroll{
+    overflow: auto;
+    height: 300px;
+    overflow: auto
+    
+}
+
+.imgConfig{
+    width: 100%;
+    height: 200px;
+    background: center / cover;
+    position: relative;
+    
+
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+.spaceNoUser{
+    margin-top: $iconSpacing;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .cardList{
+     
+    }
+    .cardDesign{
+        width: 100px;
+        height: 200px;
+    }
+    .imgConfig{
+        width: 50%;
+        height: 100px;
+    }
+    .onlyscroll{
+        height: 100px;
+    }
+
+}

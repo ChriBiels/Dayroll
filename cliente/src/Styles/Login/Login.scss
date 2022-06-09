@@ -1,0 +1,49 @@
+@import "../VariablesSass/Variables.scss";
+.body{
+    background-color: black;
+}
+.wallpaper{
+    left: 50%;
+    top: 50%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 0.5;
+}
+#container{
+    color: $menutextcolor;
+    width: 100%;
+    height: 600px;
+    
+    
+}
+.button{
+    background-color: green;
+    border-color: rgb(1, 93, 1);
+}
+.button:hover{
+    background-color: rgb(64, 128, 0);
+    border-color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .container{
+      height: 400px;
+     
+      
+    }
+    .desc{
+    font-size: 14px ;
+    }
+    .title{
+    font-size: 30px;
+
+    }
+    .button{
+        font-size: 12px;
+        height: 35px;
+        width: 65px;
+        background-color: green;
+        border-color: rgb(3, 85, 3);
+    }
+  }

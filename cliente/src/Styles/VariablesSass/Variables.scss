@@ -1,0 +1,34 @@
+//MENU
+$menubackground: rgb(46, 60, 63);
+$menuclickbackground: rgb(63, 91, 83);
+$menutextcolor: rgb(251, 251, 251);
+$menucursorcolor: rgb(64, 163, 82);
+
+//Buttons
+$defaultButtonColor: rgb(40, 44, 40);
+$defaultButtonTextColor: rgb(251, 251, 251);
+$changeButtonColor: rgb(54, 65, 54);
+$happyGrey: rgb(235, 235, 235);
+$sadlyGrey: rgb(203, 203, 212);
+
+//Cards
+$defaultCardColor: rgb(215, 243, 220);
+$changeCardColor: rgb(177, 215, 184);
+$menuUserBar: rgb(195, 236, 202);
+$iconSpacing: 25px;
+
+//Global Background
+body {
+    background-color: rgb(229, 248, 255);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    
+}
+
+//Backgrounds
+$boxBackgroundColor: rgba(0,0,0, 0.7);
+$darklight: #222831;
+$cremaAzul: rgb(229, 248, 255);

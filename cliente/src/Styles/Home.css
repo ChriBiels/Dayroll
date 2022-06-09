@@ -1,0 +1,43 @@
+body {
+  background-color: #e5f8ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.box {
+  color: #181818;
+}
+
+.defaultbutton {
+  background-color: #282c28;
+  color: #fbfbfb;
+}
+
+.defaultbutton:hover {
+  background-color: #364136;
+}
+
+.card {
+  background-color: #d7f3dc;
+  padding: 10px;
+}
+
+.card:hover {
+  background-color: #b1d7b8;
+}
+
+.selectbox {
+  width: 189px;
+}
+
+.galle {
+  background-color: #222831;
+}
+
+.divisor {
+  background-color: #171b22;
+}
+/*# sourceMappingURL=Home.css.map */

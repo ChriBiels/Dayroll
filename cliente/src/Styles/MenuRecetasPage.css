@@ -1,0 +1,47 @@
+body {
+  background-color: #e5f8ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.butCenter {
+  background-color: #222831;
+}
+
+.filterbar {
+  background-color: #222831;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.recetaContainer {
+  background-color: #e5f8ff;
+}
+
+.generalContainer {
+  background-color: #222831;
+}
+
+.filterbutton {
+  width: 90px;
+  height: 40px;
+  background-color: #ebebeb;
+  font-weight: bold;
+}
+
+.filterbutton:hover {
+  background-color: #cbcbd4;
+}
+
+.addButton {
+  background-color: #ebebeb;
+  font-weight: bold;
+}
+
+.addButton:hover {
+  background-color: #cbcbd4;
+}
+/*# sourceMappingURL=MenuRecetasPage.css.map */

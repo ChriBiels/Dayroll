@@ -1,0 +1,15 @@
+body {
+  background-color: #e5f8ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.icoCard {
+  height: 25px;
+  width: 25px;
+  position: relative;
+}
+/*# sourceMappingURL=icoCard.css.map */
