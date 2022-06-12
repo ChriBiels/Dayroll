@@ -2,13 +2,12 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
-import { MultiSelect } from 'react-multi-select-component';
+import ShowLastReceta from '../screens/ShowLastReceta';
 import Alert from './ErrorAlert'
 import Galeria from './GaleriaCarousel'
-import Select from 'react-select'
-import MostrarStats from '../componentshowdb/ShowAllEstadisticas';
 import '../Styles/Home.css'
 import { useAuth0 } from "@auth0/auth0-react";
+
 function Home({handleSubmit, ...props}){ //Creas la función general
     const[alert, setAlerta] = useState(false)
     const [selected, setSelected] = useState([])
@@ -42,178 +41,60 @@ function Home({handleSubmit, ...props}){ //Creas la función general
         setTimeout(() => {
             setAlerta(false)
         }, 3000)
-        
-
-  
-    }
-
-   
-    const genre = [
-        {label: "-",value: "-"},
-        {label: "Hombre",value: "hombre"},
-        {label: "Mujer",value: "mujer"}
-    ]
-    const[genreResult, genreValue]=useState(genre.label)
-    const handler = e => {
-        genreValue(e.label)
     }
 
 
-    const activity = [
-    {label: "-",value: "-"},
-    {label: "Activo",value: "activo"},
-    {label: "Casual",value: "casual"},
-    {label: "Sedentarismo",value: "sedentarismo"},
-    ]
-    const[actResult, actValue]=useState(activity.label)
-    const handlerActivity = e => {
-    actValue(e.label)
-    }   
-
-
-    const intolerancia = [
-    {label: "Gluten",value: "gluten"},
-    {label: "Lactosa",value: "lactosa"},
-    {label: "Histamina",value: "histamina"},
-    {label: "Fructosa",value: "fructosa"},
-    {label: "Sacarosa",value: "sacarosa"},
-]
-
-    const prob = ()=>{
-        if((actResult === "-" || actResult === "" || actResult === undefined) &&
-        (genreResult === "-" || genreResult === "" || genreResult === undefined)){
-       mostrarAlerta("No has seleccionado Género ni Estado de Actividad", "Error ") 
-        }
-        else if(genreResult === "-" || genreResult === "" || genreResult === undefined){
-        mostrarAlerta("No has seleccionado un Género", "Error ")
-        }
-        else if(actResult === "-" || actResult === "" || actResult === undefined){
-        mostrarAlerta("No has seleccionado un Estado de Actividad", "Error ")
-        }
-
-    }
-
-
-    const customValueRenderer = (selected, _options) => {
-        return selected.length
-          ? selected.map(({ label }) => label)
-          : "Ninguna";
-        };
-    
-        
     return (
 
-        (numuser != '') &&(
         <div >
         <div className='galle d-flex flex-column justify-content-center align-items-center '>
         <Galeria/>
         </div>
-        <div className='divisor mb-2'>    </div>
-      <Alert alert={alert}/>
-      <div className='global'>
+    <div className='bascardsGlobal d-flex flex-row justify-content-center'>
     
-      <div className='title d-flex flex-column justify-content-center align-items-center'>
-      
-      <h2>Mide tus objetivos</h2>
-      </div>
-        <div className='box d-flex flex-column justify-content-center align-items-center flex-lg-row'>
-        <div className='itemOne me-lg-5 mt-lg-3 ms-lg-5 mb-lg-3'>
-        <label>Genero</label>
-        <div className='selectordiv'>
-        <Select options={genre} defaultValue={{ label: "-", value: "-" }} onChange={handler}/>
-        </div>
-        <label>Estado de Actividad</label>
-        <div className='selectordiv'>
-        <Select options={activity} defaultValue={{ label: "-", value: "-" }}  onChange={handlerActivity}/>
-        </div>
-        <label>Peso</label>
-        <div>
-        <input
-            type='number'
-            value={props.peso}
-            name='peso'
-            placeholder=''
-            onChange={props.cambiarPeso}
-            
-        ></input>
-        </div>
-        </div>
-        <div className='itemTwo'>
-        <label>Altura</label>
-        <div>
-        <input
-            type='number'
-            value={props.altura}
-            name='altura'
-            placeholder=''
-            onChange={props.cambiarAltura}
-            
-        ></input>
-        </div>
+    <div className='ultimaReceta'>
+    <ShowLastReceta></ShowLastReceta>
+    </div>
 
-        <div className='selectbox'>
-        <label>Intolerancia</label>
-        <div>
-        <MultiSelect
-            options={intolerancia}
-            hasSelectAll={false}
-            value={selected}
-            onChange={setSelected}
-            labelledBy="Seleccionar"
-            valueRenderer={customValueRenderer}
-        />
-        </div>
-        </div>
+    <div className='solocards mt-3'>
+    <div className="blog-card">
+    <div className="meta">
+      <img className="photo" src="https://i.imgur.com/1rJgNen.png"/>
+    </div>
+    <div className="description">
+      <h1>Ultima receta añadida</h1>
+      <h2>¿Será la receta que buscas?</h2>
+      <p>Revisa de vez en cuando la web para descubrir nuevas recetas</p>
+    </div>
+  </div>
+    <div className="blog-card alt">
+    <div className="meta">
+      <img className="photo" src='https://i.imgur.com/EZqYWpj.jpg'/>
+    </div>
+    <div className="description">
+      <h1>Crea recetas únicas</h1>
+      <h2>Muestra tu creatividad</h2>
+      <p> Entra al Recetario y crea nuevas recetas para compartir con el mundo</p>
+    </div>
+  </div>
+  <div className="blog-card">
+    <div className="meta">
+      <img className="photo" src="https://i.imgur.com/8FHOXMs.jpg"/>
+    </div>
+    <div className="description">
+      <h1>Buscar y probar</h1>
+      <h2>Encuentra nuevos sabores</h2>
+      <p>Busca entre varias recetas tu favorita y pruebala en casa</p>
+    </div>
+  </div>
+  </div>
+
+
+  </div>
+
         </div>
   
-        
-        
-
-        
-        </div>
-        <div className='box d-flex flex-column justify-content-center align-items-center pb-5 pt-2'>
-        <button className='defaultButton rounded-3' type='button' onClick={prob}>Comprobar</button> 
-        </div>
-
-
-
-      
-        <MostrarStats></MostrarStats>
-      
-
-
-
-
-
-        <div className='container d-flex flex-column justify-content-center text-center flex-lg-row justify-content-lg-between '>
-
-        <div className='card'>
-        <h3>¿Qué es esto?</h3>
-        <p>CONTENIDO A MOSTRAR LOREMLOREMLOREMLORE
-            MLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMOREMLOREMLOOREMLOREMLO
-            LOREMLOREMLOREM</p>
-        </div>
-
-        <div className='card'>
-        <h3>¿Qué toma de base?</h3>
-        <p>CONTENIDO A MOSTRAR LOREM LOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREM</p>
-        </div>
-
-        <div className='card'>
-        <h3>Comidas</h3>
-        <p>CONTENIDO A MOSTRAR LOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREMLOREM</p>
-        </div>
-        
-        
-        </div>
-
-
-  
-
-        </div>
-        
-        </div>
-    ));
+    );
     
 }
  export default Home;

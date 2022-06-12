@@ -1,5 +1,5 @@
 //MENU
-$menubackground: rgb(46, 60, 63);
+$menubackground: rgb(57, 69, 72);
 $menuclickbackground: rgb(63, 91, 83);
 $menutextcolor: rgb(251, 251, 251);
 $menucursorcolor: rgb(64, 163, 82);
@@ -15,11 +15,11 @@ $sadlyGrey: rgb(203, 203, 212);
 $defaultCardColor: rgb(215, 243, 220);
 $changeCardColor: rgb(177, 215, 184);
 $menuUserBar: rgb(195, 236, 202);
-$iconSpacing: 25px;
+$iconSpacing: 35px;
 
 //Global Background
 body {
-    background-color: rgb(229, 248, 255);
+    background-color: rgb(250, 253, 255);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -32,3 +32,18 @@ body {
 $boxBackgroundColor: rgba(0,0,0, 0.7);
 $darklight: #222831;
 $cremaAzul: rgb(229, 248, 255);
+
+//Paginacion
+$barraFondo: rgb(249, 250, 255);
+
+//Divisor
+$divisor: #171b22;
+
+//Grain Textures
+/* Color Theme Swatches in RGBA */
+$Grain-dark-green-1: rgba(4,34,38, 1);
+$Grain-dark-green-2: rgba(10,58,63, 1);
+$Grain-dark-green-3: rgba(15,89,89, 1);
+$Grain-dark-green-4: rgba(28,114,114, 1);
+$Grain-dark-green-5: rgba(16,114,96, 1);
+

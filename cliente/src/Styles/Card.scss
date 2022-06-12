@@ -1,9 +1,14 @@
 @import "./VariablesSass/Variables.scss";
 
-.cardDesign{
+.genericCard{
     background-color: white;
     padding: 0px;
-    margin: 0px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.genericCard:hover{
+    background-color: rgb(190, 199, 249);
 }
 
 .title{
@@ -38,6 +43,7 @@
     height: 200px;
     background: center / cover;
     position: relative;
+    margin-top: 5px;
     
 
 }
@@ -50,12 +56,15 @@
     margin-top: $iconSpacing;
 }
 
+.fechaCreada{
+    font-size: 13px;
+    padding-left: 8px;
+    padding-top: 11px;
+}
 
 
 @media screen and (max-width: 600px) {
-    .cardList{
-     
-    }
+
     .cardDesign{
         width: 100px;
         height: 200px;

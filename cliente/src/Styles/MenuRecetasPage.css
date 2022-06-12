@@ -1,5 +1,5 @@
 body {
-  background-color: #e5f8ff;
+  background-color: #fafdff;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -7,6 +7,7 @@ body {
   height: 100vh;
 }
 
+/* Color Theme Swatches in RGBA */
 .butCenter {
   background-color: #222831;
 }

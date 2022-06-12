@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Container, Row, Col} from 'react-bootstrap'
 import RecetaCard from '../components/RecetaCard';
 import { MultiSelect } from 'react-multi-select-component';
+import Paginacion from '../components/Paginacion.js'
 import '../Styles/MenuRecetasPage.css'
 
 const ShowRecetas = () => {
@@ -11,6 +12,9 @@ const ShowRecetas = () => {
     const [recetacion, setRecetas] = useState([])
     const [selected, setSelected] = useState([])
     const [selectAlimento, setSelectAlimento] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [recetasPorPagina]= useState(6)
 
     const intolerancia = [
         {label: "Gluten",value: "gluten"},
@@ -22,11 +26,13 @@ const ShowRecetas = () => {
     let intolerance = ''
 
     const tipoAlimento = [
-        {label: "Exóticos",value: "Productos%20exoticos"},
-        {label: "Carne Roja",value: "Carne%20roja"},
-        {label: "Carne Blanca",value: "Carne%20blanca"},
+        {label: "Exóticos",value: "Productos exoticos"},
+        {label: "Carne Roja",value: "Carne roja"},
+        {label: "Carne Blanca",value: "Carne blanca"},
         {label: "Pescado",value: "Pescado"},
         {label: "Moluscos",value: "Molusco"},
+        {label: "Tuberculos",value: "Tuberculos"},
+        {label: "Hongos",value: "Hongos"},
         {label: "Verduras",value: "Verduras"},
         {label: "Huevo",value: "Huevo"},
         {label: "Cereales",value: "Cereales"},
@@ -36,17 +42,20 @@ const ShowRecetas = () => {
         {label: "Lacteos",value: "Lacteos"},
         {label: "Alcohol",value: "Alcohol"},
         {label: "Aceite",value: "Aceite"},
-        {label: "Frutos secos",value: "Frutos%20secos"},
+        {label: "Frutos secos",value: "Frutos secos"},
     ]
     let tipoalimento = ''
 
     useEffect(() => {
         const getRecetasData = async () => {
+            setLoading(true)
             const { data } = await axios.get(`${URI}/allRecetas`)
             setRecetas(data)
+            setLoading(false)
         }
         getRecetasData()
     }, [])
+
 
     const defaultAlimento = (selected, _options) => {
         return selected.length
@@ -84,12 +93,26 @@ const ShowRecetas = () => {
             setRecetas(data)
         }else {
             setRecetas([])
+            setLoading(true)
             const { data } = await axios.get(`${URI}/allRecetas`)
             setRecetas(data) 
+            setLoading(false)
         }
-       
-       
+    
+
     }
+
+
+    if(loading && recetacion.length === 0){
+        return <h2>Cargando . . .</h2>
+    }
+
+    //Paginación
+    const ultimaPagina = currentPage * recetasPorPagina
+    const primeraPagina = ultimaPagina - recetasPorPagina
+    const cantidadActual = recetacion.slice(primeraPagina, ultimaPagina)
+    const numeroPaginas = Math.ceil(recetacion.length/recetasPorPagina)
+
 
 
     return (
@@ -117,21 +140,35 @@ const ShowRecetas = () => {
                          />
                </div>
           
-           <Container  className="recetaContainer justify-content-center p-2">
+           <Container  className="recetaContainer justify-content-center">
+           {!loading ? (
+          <>
+            <Paginacion pages = {numeroPaginas} setCurrentPage={setCurrentPage}/>
+          </>
+        ) : (
+            <div></div>     
+        )}
                <h1 className='text-center'>Recetario</h1>
-               <Row>
+               <Row className='ro d-flex justify-content-center align-items-center'>
                     {
-                        recetacion.map(recetas => {
+                        cantidadActual.map(recetas => {
 
-                            return <Col md={6} lg={4} sm={12} key={recetas.id}>
+                            return <Col md={6} lg="auto" sm={8} key={recetas.id}>
                                 <RecetaCard recetas={recetas} />
                             </Col>
                         })
                     }
                </Row>
-
-
+               {!loading ? (
+          <>
+            <Paginacion pages = {numeroPaginas} setCurrentPage={setCurrentPage}/>
+          </>
+        ) : (
+            <div></div>     
+        )}
+           
            </Container>
+           
 
            </div>
         </>

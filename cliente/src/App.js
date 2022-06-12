@@ -6,10 +6,9 @@ import MenuRecetas from './components/MenuRecetas';
 import ErrorLoad from './components/ErrorLoad';
 import AddReceta from './screens/AddReceta';
 import ShowRecetas from './screens/ShowRecetas';
-import About from './components/About';
-import Contact from './components/Contact';
 import Login from './components/Login';
 import ShowUserRecetas from './screens/ShowUserRecetas'
+import FooterWeb from './components/Footer';
 
 
 
@@ -17,7 +16,7 @@ function App() {
   const location = useLocation()
 
   return (
-    <div className='global'>
+    <div className='global d-flex flex-column'>
       {location.pathname === '/' ? null : <NavBar />}
     <div className="general">
       <Routes>
@@ -27,13 +26,11 @@ function App() {
         <Route path="/recipes" element={<MenuRecetas/>}/>
         <Route path="/addrecipes" element={<AddReceta/>}/>
         <Route path="/showrecipes" element={<ShowRecetas/>}/>
-        <Route path="/about" element={<About/>}/>
-        <Route path="/contact" element={<Contact/>}/>
         <Route path="*" element={<ErrorLoad/>}/>
       </Routes>
     </div>
     <div className='footer' >
-
+    <FooterWeb/>
     </div>
     </div>
   );

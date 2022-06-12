@@ -1,8 +1,11 @@
 
+
 import Recetario from "../models/RecetaModel.js";
 import multer from "multer";
 import * as path from 'path'
 import { Op } from "sequelize";
+import Favs from "../models/FavsModel.js";
+
 
 
 
@@ -174,6 +177,40 @@ export const getReceta = async (req, res) => {
     }
 }
 
+//Mostrar ultima receta añadida
+export const getLastReceta = async (req, res) => {
+    try{
+        const lastRecetas = await Recetario.findOne({
+            order:[
+               ['id', 'DESC']
+            ]
+        })
+        res.json(lastRecetas)
+    }catch(error){
+        res.json({message: error.message})
+    }
+}
+
+
+//Mostrar todas las recetas favs de un usuario
+export const getAllRecetaFav = async (req, res) => {
+    try {
+        const favs = await Recetario.findAll({
+            where: {
+                auth: req.params.auth,
+            },
+            required:false,
+            include: {
+                model: Favs
+            }
+        })
+        res.json(favs)
+    } catch (error) {
+        res.json({message: error.message})
+    }
+}
+
+
 
 
 //Usuario Update una receta
@@ -181,7 +218,8 @@ export const updateReceta = async(req, res) =>{
     try {
         await Recetario.update(req.body, {
             where: { 
-                id: req.params.id
+                id: req.params.id,
+                auth: req.params.auth
                 }
         })
         res.json({
@@ -240,3 +278,60 @@ export const upload = multer({
     }
 
 }).single('imagen')
+
+
+
+//Añadir favoritos
+export const addFavs = async (req, res) => {
+    let info={
+        nombrefav: req.body.nombre,
+        descripcionfav: req.body.descripcion,
+        tipoalimentofav: req.body.tipoalimento,
+        ingredientesfav: req.body.ingredientes,
+        alergenosfav: req.body.alergenos,
+        auth: req.body.auth,
+        imagenfav: req.body.imagen
+    }
+    try {
+        await Favs.create(info)
+        res.json({
+            "message":"Se ha añadido a favoritos"
+        })
+    } catch (error) {
+        res.json({message: error.message})
+    }
+    
+}
+
+
+//Borrar Favoritos
+export const deleteFavs = async(req, res)=>{
+    try {
+        await Favs.destroy({
+            where: { 
+                id: req.params.id,
+                auth: req.params.auth
+               }
+        })
+
+        res.json({
+            "message":"Eliminado"
+        })
+    } catch (error) {
+        res.json({message: error.message})
+    }
+}
+
+//Mostrar Favoritos de un usuario en concreto
+export const getUserFavs = async (req, res) => {
+    try {
+        const receta = await Favs.findAll({
+            where:{
+                auth: req.params.auth
+            }
+        })
+        res.json(receta)
+    } catch (error) {
+        res.json({message: error.message})
+    }
+}

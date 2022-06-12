@@ -9,13 +9,13 @@ import '../Styles/MenuRecetasPage.css'
 
 function MenuRecetas(){
     const [hidden, setHidden] = useState(true);
+    const getAuth = localStorage.getItem("auser")
+    const getVerifi = localStorage.getItem("mv")
 
 return(
     <div className='opt'>
     <div className='butCenter d-flex justify-content-center pt-3 pb-2'>
-    <button className='addButton' onClick={() => setHidden( e=> !e)}>
-        Agregar Receta
-    </button>
+    {getVerifi ==='true' && getAuth !== null ?<button className='addButton' onClick={() => setHidden( e=> !e)}> Agregar Receta</button> : <div></div>}
     </div>
     {!hidden ? <div><AddReceta/></div> : null}
     <div>

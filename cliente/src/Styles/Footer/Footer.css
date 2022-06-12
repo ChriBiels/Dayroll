@@ -8,4 +8,7 @@ body {
 }
 
 /* Color Theme Swatches in RGBA */
-/*# sourceMappingURL=Variables.css.map */
+.footerbase {
+  background-color: #171b22;
+}
+/*# sourceMappingURL=Footer.css.map */

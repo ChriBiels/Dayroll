@@ -1,0 +1,60 @@
+body {
+  background-color: #fafdff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Color Theme Swatches in RGBA */
+.pagination-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  font-weight: 500;
+  font-size: 15px;
+  background-color: white;
+}
+
+.pagination-container a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: black;
+  height: 40px;
+  width: 40px;
+  text-decoration: none;
+  -webkit-transition: background-color .2s;
+  transition: background-color .2s;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.pagination-container a.active {
+  background-color: #2a1fca;
+  color: whitesmoke;
+  border: 1px solid #7c78b2;
+}
+
+.pagination-container a.disabled {
+  opacity: 0.2;
+}
+
+.pagination-container a:hover:not(.active) {
+  background-color: #bdb7b7;
+}
+/*# sourceMappingURL=PaginacionStyle.css.map */

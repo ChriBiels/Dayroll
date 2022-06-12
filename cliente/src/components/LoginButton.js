@@ -9,7 +9,7 @@ const LoginButton=()=>{
     }
 
       return(
-        <Button className='button w-25' onClick={()=>logginRe()}>Login</Button>
+        <Button className='button w-50' onClick={()=>logginRe()}>Login</Button>
       )
   }
   export default LoginButton

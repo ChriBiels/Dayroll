@@ -11,9 +11,7 @@ export default function NavBar() {
         <ul>
         <CustomLink to="/home">Home</CustomLink>
         <CustomLink to="/recipes">Recetas</CustomLink>
-        <CustomLink to="/account">Cuenta</CustomLink>
-        <CustomLink to="/about">Info</CustomLink>
-        <CustomLink to="/contact">Contacto</CustomLink>
+        {isAuthenticated ? <CustomLink to="/account">Cuenta</CustomLink>: <></> }
         {isAuthenticated ? (
           <>
             <LogoutButton className="button" />

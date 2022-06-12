@@ -1,5 +1,5 @@
 body {
-  background-color: #e5f8ff;
+  background-color: #fafdff;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -7,6 +7,7 @@ body {
   height: 100vh;
 }
 
+/* Color Theme Swatches in RGBA */
 .defaultButton {
   background-color: #282c28;
   color: #fbfbfb;
@@ -24,7 +25,7 @@ body {
 }
 
 .hiddenlogo {
-  background: #2e3c3f;
+  background: #394548;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -34,7 +35,7 @@ body {
 }
 
 .nav {
-  background-color: #333;
+  background-color: #394548;
   color: white;
   display: -webkit-box;
   display: -ms-flexbox;

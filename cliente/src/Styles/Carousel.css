@@ -1,5 +1,5 @@
 body {
-  background-color: #e5f8ff;
+  background-color: #fafdff;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -7,12 +7,14 @@ body {
   height: 100vh;
 }
 
+/* Color Theme Swatches in RGBA */
 .main-slide {
   padding-top: 10px;
+  margin-bottom: -25px;
 }
 
 .carousel .slider-wrapper {
-  width: 60%;
+  width: 65%;
 }
 
 .carousel .thumb {

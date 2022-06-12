@@ -1,0 +1,36 @@
+@import "./VariablesSass/Variables.scss";
+
+.pagination-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    font-weight:500;
+    font-size:15px;
+    background-color: white ;
+   }
+
+.pagination-container a{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:black;
+    height:40px;
+    width:40px;
+    text-decoration:none;
+    transition:background-color .2s;
+    border:1px solid #ddd;
+    cursor:pointer;
+   }
+
+.pagination-container a.active {
+    background-color: rgb(42, 31, 202);
+    color: whitesmoke;
+    border: 1px solid rgb(124, 120, 178);
+}
+
+.pagination-container a.disabled {
+    opacity: 0.2;
+}
+
+.pagination-container a:hover:not(.active) {background-color: rgb(189, 183, 183);}

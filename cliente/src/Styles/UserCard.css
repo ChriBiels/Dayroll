@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500&display=swap");
 body {
-  background-color: #e5f8ff;
+  background-color: #fafdff;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -8,6 +8,7 @@ body {
   height: 100vh;
 }
 
+/* Color Theme Swatches in RGBA */
 .carde {
   background-color: #222831;
   border-radius: 5px;
@@ -26,6 +27,7 @@ body {
   color: white;
   padding-bottom: 8px;
   height: 320px;
+  border: 0 solid;
 }
 
 .verified {

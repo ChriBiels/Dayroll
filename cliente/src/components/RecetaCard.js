@@ -1,8 +1,9 @@
 import {React, useState, useEffect } from 'react'
-import { Alert, Card, Modal, Button, Form } from 'react-bootstrap'
+import {Card, Modal, Button, Form } from 'react-bootstrap'
 import '../Styles/Card.css'
 import '../Styles/icoCard.css'
 import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
 import { MultiSelect } from 'react-multi-select-component';
 
 
@@ -11,11 +12,37 @@ const RecetaCard = ({ recetas }) => {
     const [show, setShow] = useState(false);
     const [selected, setSelected] = useState([])
     const [selectAlimento, setSelectAlimento] = useState([])
+    const {user,isAuthenticated} = useAuth0()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [showBorrado, setShowBorrado] = useState(false);
+    const handleCerrarBorrado = () => setShowBorrado(false);
+    const handleMostrarBorrado = () => setShowBorrado(true);
     const URL = 'http://localhost:8200/receta/'
+    
+    useEffect(() => {
+           
+        const load = async () =>{
+            const getUsuario = await user.sub
+            const getNickName = await user.nickname
+            const getAvatar = await user.picture
+            const getMailVeri = await user.email_verified
+            if(getUsuario !== null && getUsuario !== '' && getUsuario !== undefined){
+                const rework = getUsuario.split('|').pop()
+                localStorage.setItem('auser', rework)
+                localStorage.setItem('nick',getNickName)
+                localStorage.setItem('avatar',getAvatar)
+                localStorage.setItem('mv',getMailVeri)
+                }
+        }
+        load()
+    },[])
+    
+    
     const auth = localStorage.getItem('auser')
     let updButton, delButton
+    const [updateData, setUpdates] = useState({})
+    const [updateDesc, setUpdateDesc] = useState({})
 
     const intolerancia = [
         {label: "Gluten",value: "gluten"},
@@ -24,7 +51,6 @@ const RecetaCard = ({ recetas }) => {
         {label: "Fructosa",value: "fructosa"},
         {label: "Sacarosa",value: "sacarosa"},
     ]
-    let selectbox = ''
 
     const tipoAlimento = [
         {label: "Exóticos",value: "Productos exoticos"},
@@ -32,6 +58,8 @@ const RecetaCard = ({ recetas }) => {
         {label: "Carne Blanca",value: "Carne blanca"},
         {label: "Pescado",value: "Pescado"},
         {label: "Moluscos",value: "Molusco"},
+        {label: "Tuberculos",value: "Tuberculos"},
+        {label: "Hongos",value: "Hongos"},
         {label: "Verduras",value: "Verduras"},
         {label: "Huevo",value: "Huevo"},
         {label: "Cereales",value: "Cereales"},
@@ -43,32 +71,16 @@ const RecetaCard = ({ recetas }) => {
         {label: "Aceite",value: "Aceite"},
         {label: "Frutos secos",value: "Frutos secos"},
     ]
-    let tipoalimento = ''
 
-
-
-
-    function deleteReceta(url,id,auth){
-        axios.delete(url+id+'/'+auth)
-        window.location.reload(false)
-    }
-
-    function updateReceta(url,id,content){
-        selectAlimento.forEach(element => {
-            tipoalimento = tipoalimento + element.value+","
-        })
-
-        selected.forEach(element => {
-            selectbox = selectbox + element.value+","
-        });
-
-        axios.put(url+id, content)
-
+    function deleteReceta(){
+        axios.delete(URL+recetas.id+'/'+auth).then(() =>{
+            window.location.reload(false)
+        }) 
     }
 
     if(auth === recetas.auth ){
-        updButton = <img className='icoCard' onClick={()=>handleShow()} src='https://i.imgur.com/Kr71g3Z.png'/>
-        delButton = <img className='icoCard' onClick={()=>deleteReceta(URL, recetas.id, auth)} src='https://i.imgur.com/WLur40x.png'/>
+        updButton = <img className='icoCard' onClick={()=>handleShow()} src='https://i.imgur.com/A1ZvXJr.png'/>
+        delButton = <img className='icoCard' onClick={()=>handleMostrarBorrado()} src='https://i.imgur.com/firZbTx.png'/>
     } else {
         updButton = <div className='spaceNoUser'></div>
         delButton = <div className='spaceNoUser'></div>
@@ -86,45 +98,83 @@ const RecetaCard = ({ recetas }) => {
             : recetas.intolerancia;
         };
 
+
+    async function updateReceta(){
+        var object = Object.assign({}, updateData, updateDesc)
+          axios.put(URL+recetas.id+'/'+auth, object).then(()=>{
+          window.location.reload(false)    
+          })
+        }
+    
+
     return (
         <>
-
+        <Modal show={showBorrado} onHide={handleCerrarBorrado}>
+            <Modal.Header closeButton>
+                <Modal.Title>Borrar: {recetas.nombre}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <div className=' d-flex justify-content-center mt-1 p-1 border-0'>
+               <h5>La receta {recetas.nombre} será eliminada</h5>
+            </div>
+            </Modal.Body>
+            <Modal.Footer>
+                 <Button variant="secondary" onClick={handleCerrarBorrado}>
+                     Cancelar
+                    </Button>
+                 <Button className='actu' type='submit' onClick={deleteReceta}>
+                    Confirmar
+                    </Button>
+            </Modal.Footer>
+        </Modal>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Modificar: {recetas.nombre}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <div className=' d-flex justify-content-center mt-5 p-1 border-0'>
-
-                
-                <Form>
+                <Form onSubmit={ e => {
+                    e.preventDefault()
+                }}>
                 <div className='imgMid d-flex justify-content-center'>
                     <img className='imgConfig' src={recetas.imagen}/>
                 </div>
                     <Form.Group className="mb-1" controlId="nombre">
-                        <Form.Label>Nombre</Form.Label>
+                        <Form.Label>Nombre *</Form.Label>
                         <Form.Control
-                            value={recetas.nombre}
+                            defaultValue={recetas.nombre}
+                            required={true}
+                            onChange={(e) => {
+                                let valName = e.target.value
+                                setUpdates({ nombre: valName })
+                            }}
                             type="text"
+                           
                           />
                     </Form.Group>
 
                     <Form.Group className="mb-1" controlId="descripcion">
-                        <Form.Label>Descripcion </Form.Label>
+                        <Form.Label>Procedimiento * </Form.Label>
                         <Form.Control
-                            value={recetas.descripcion}
+                            defaultValue={recetas.descripcion}
                             as="textarea"
+                            required={true}
+                            onChange={(e) => {
+                                let val = e.target.value
+                                setUpdateDesc({ descripcion: val })
+                            }}
                              />
                     </Form.Group>
 
                     
                     <Form.Group className="mb-3" controlId="tipoalimento">
-                        <Form.Label>Contiene</Form.Label>
+                        <Form.Label>[x]Contiene</Form.Label>
                         <MultiSelect
                              options={tipoAlimento}
                              hasSelectAll={false}
                              value={selectAlimento}
-                             onChange={setSelectAlimento}
+                             disabled={true}
+                             onChange={setSelectAlimento} 
                              labelledBy="SelecAlimento"
                              valueRenderer={customAlimento}
                              
@@ -133,18 +183,24 @@ const RecetaCard = ({ recetas }) => {
 
                   
                     <Form.Group className="mb-1" controlId="ingredientes">
-                        <Form.Label>Ingredientes</Form.Label>
+                        <Form.Label>[x]Ingredientes</Form.Label>
                         <Form.Control
-                            value={recetas.ingredientes}
+                            defaultValue={recetas.ingredientes}
                             as="textarea"
+                            disabled={true}
+                            onChange={(e) => {
+                                let val = e.target.value
+                                setUpdates({ ingredientes: val })
+                            }}
                             />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="alergenos">
-                        <Form.Label>Alergenos</Form.Label>
+                        <Form.Label> [x]Alergenos </Form.Label>
                         <MultiSelect
                              options={intolerancia}
                              hasSelectAll={false}
                              value={selected}
+                             disabled={true}
                              onChange={setSelected}
                              labelledBy="Seleccionar"
                              valueRenderer={customIntol}
@@ -157,16 +213,21 @@ const RecetaCard = ({ recetas }) => {
                  <Button variant="secondary" onClick={handleClose}>
                      Close
                     </Button>
-                 <Button variant="primary" onClick={updateReceta}>
+                 <Button className='actu' type='submit' onClick={updateReceta}>
                     Actualizar
                     </Button>
             </Modal.Footer>
         </Modal>
         <div className='cardList d-flex justify-content-center align-items-center'>
-            <Card className='cardDesign shadow-lg border-3 mb-4' style={{ width: '18rem' }}>
-             <div className='bar d-flex flex-row justify-content-between'>
+            <div className='genericCard shadow-lg border-3 mb-4 rounded-3' style={{ width: '18rem' }}>
+             <div className='bar d-flex flex-row justify-content-between mt-1'>
+                <span className='fechaCreada h6'>
+               {recetas.createdAt}
+               </span>
+                <span>
                    {updButton}
                    {delButton}
+                </span>
                 </div>
             
                 <div className='cardInterior' >
@@ -181,7 +242,7 @@ const RecetaCard = ({ recetas }) => {
                     <div className='cardTitle'>Procedimiento: </div><Card.Text className=''>{recetas.descripcion}</Card.Text>
                     </div>
                 </div>
-            </Card>
+            </div>
             </div>
            
         </>

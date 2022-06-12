@@ -5,12 +5,13 @@ import { Button } from 'react-bootstrap'
 export const LogoutButton =() =>{
     const {logout} = useAuth0()
     function deslog(){
+        localStorage.clear()
         logout({returnTo: window.location.origin})
 
     }
 
     return ( 
-    <Button className='button w-25' 
+    <Button className='button w-50' 
     onClick={deslog}>Logout</Button>
     )
 }

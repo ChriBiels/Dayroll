@@ -5,7 +5,7 @@ import { MultiSelect } from 'react-multi-select-component';
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import {v4} from "uuid"
-import Alert from '../components/ErrorAlert';
+import AlertSuccess from '../components/SuccessAlert';
 import '../Styles/MenuRecetasPage.css'
 
 const AddReceta = ({ receta }) => {
@@ -35,6 +35,8 @@ const AddReceta = ({ receta }) => {
         {label: "Carne Blanca",value: "Carne blanca"},
         {label: "Pescado",value: "Pescado"},
         {label: "Moluscos",value: "Molusco"},
+        {label: "Tuberculos",value: "Tuberculos"},
+        {label: "Hongos",value: "Hongos"},
         {label: "Verduras",value: "Verduras"},
         {label: "Huevo",value: "Huevo"},
         {label: "Cereales",value: "Cereales"},
@@ -56,9 +58,6 @@ const AddReceta = ({ receta }) => {
         setTimeout(() => {
             setAlerta(false)
         }, 3000)
-        
-
-  
     }
 
     const customValueRenderer = (selected, _options) => {
@@ -74,7 +73,7 @@ const AddReceta = ({ receta }) => {
     const addProductHandler = async (e) => {
         e.preventDefault()
         const imageReferencia = ref(imageStorage, `imagen/${imagen.name + v4()}`)
-
+        mostrarAlerta("La receta se ha subido correctamente", "Aviso: ")
         uploadBytes(imageReferencia, imagen)
         .then(() => {
            getDownloadURL(imageReferencia)
@@ -96,6 +95,11 @@ const AddReceta = ({ receta }) => {
                       formData.append('alergenos', selectbox)
                       formData.append('auth', auth)
                       axios.post(`${URI}/addReceta`, formData)
+
+                     
+                      if(alert === false){
+                          window.location.reload(false)
+                      }
                    })
                 .catch((err) => {
                 console.log(err.message, "Error al obtener imagen")
@@ -105,19 +109,13 @@ const AddReceta = ({ receta }) => {
         .catch((err)=>{
             console.log(err.message)
         })
-
-        
-  
-
-
     }
-
     return (
         <>
         <div className='generalContainer d-flex justify-content-center align-items-center'>
-            <div className=' recetaContainer d-flex flex-column w-25 justify-content-center align-items-center align-content-center pt-5 p-1'>
+            <div className=' recetaContainer d-flex flex-column w-50 rounded-3 justify-content-center align-items-center align-content-center pt-5 p-1'>
                 <Form onSubmit={addProductHandler} method="POST" encType='multipart/form-data' className='formulario flex-column'>
-                <Alert alert={alert}/>
+                <AlertSuccess alert={alert}/>
                 
                 <Form.Group controlId="fileName" className="mb-1">
                     <Form.Label>Subir Imagen</Form.Label>
@@ -126,7 +124,7 @@ const AddReceta = ({ receta }) => {
                         name='imagen'
                         onChange={(e) => setImage(e.target.files[0])}
                         size="lg"
-                        required='true'
+                        required={true}
                          />
                 </Form.Group>
 
@@ -190,7 +188,7 @@ const AddReceta = ({ receta }) => {
                     <Form.Group hidden={true} className="mb-3 " controlId="auth">
                         <Form.Label>Autentificación</Form.Label>
                         <Form.Control
-                            value={auth}
+                            defaultValue={auth}
                             onChange={null}
                             as="textarea"
                            />
@@ -198,7 +196,7 @@ const AddReceta = ({ receta }) => {
 
                 <div className=' d-flex justify-content-center pb-4'>
                     <button className='addButton' type='submit'>
-                        Agregar Receta
+                        Añadir
                     </button>
                 </div>
                 </Form>

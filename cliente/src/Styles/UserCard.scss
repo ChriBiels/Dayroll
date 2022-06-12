@@ -3,7 +3,7 @@
 
 
 .carde {
-  background-color: #222831;
+  background-color: $darklight;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -12,6 +12,7 @@
   color: white;
   padding-bottom: 8px;
   height: 320px;
+  border: 0 solid;
 }
 
 .verified{
