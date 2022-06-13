@@ -13,7 +13,7 @@ const ShowUserRecetas = () => {
     const [numRecetas, setNumRecetas] = useState(0)
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const [recetasPorPagina]= useState(6)
+    const [recetasPorPagina]= useState(8)
 
     const auth = localStorage.getItem('auser')
     const userName = localStorage.getItem('nick')

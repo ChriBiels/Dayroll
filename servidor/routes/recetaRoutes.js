@@ -17,7 +17,7 @@ recetaRouter.get('/allRecetas/lastReceta', getLastReceta)
 recetaRouter.get('/allRecetas/allFavs/:auth', getUserFavs)
 recetaRouter.post('/addReceta/addFavs', addFavs)
 recetaRouter.delete('/allRecetas/deleteFav/:id/:auth', deleteFavs)
-
+//
 
 recetaRouter.post('/addReceta', upload, addReceta)
 recetaRouter.put('/:id/:auth', updateReceta)

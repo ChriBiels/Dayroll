@@ -14,7 +14,7 @@ const ShowRecetas = () => {
     const [selectAlimento, setSelectAlimento] = useState([])
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const [recetasPorPagina]= useState(6)
+    const [recetasPorPagina]= useState(8)
 
     const intolerancia = [
         {label: "Gluten",value: "gluten"},
@@ -35,7 +35,9 @@ const ShowRecetas = () => {
         {label: "Hongos",value: "Hongos"},
         {label: "Verduras",value: "Verduras"},
         {label: "Huevo",value: "Huevo"},
+        {label: "Pastas",value: "Pastas"},
         {label: "Cereales",value: "Cereales"},
+        {label: "Legumbres",value: "Legumbres"},
         {label: "Fruta",value: "Fruta"},
         {label: "Hortalizas",value: "Hortalizas"},
         {label: "Granos",value: "Granos"},

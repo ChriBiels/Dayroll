@@ -9,11 +9,25 @@ import { useEffect } from 'react';
 
 
 function Login(){
-    const { isAuthenticated } = useAuth0();
+    const {user, isAuthenticated } = useAuth0();
     useEffect(() => {
         if(isAuthenticated){
-          window.location.href= window.location.origin + '/home'
-           }
+          const load = async () =>{
+          const getUsuario = await user.sub
+          const getNickName = await user.nickname
+          const getAvatar = await user.picture
+          const getMailVeri = await user.email_verified
+          if(getUsuario !== null && getUsuario !== '' && getUsuario !== undefined){
+              const rework = getUsuario.split('|').pop()
+              localStorage.setItem('auser', rework)
+              localStorage.setItem('nick',getNickName)
+              localStorage.setItem('avatar',getAvatar)
+              localStorage.setItem('mv',getMailVeri)
+              window.location.href= window.location.origin + '/home'
+              }
+          }
+          load()
+        }
       })
 
     return (
@@ -24,7 +38,7 @@ function Login(){
             </video>
         <div id='container'className='container d-flex border-0'>
         <img className='imga w-25 h-25' src="https://i.imgur.com/uYYuxHa.png"/>
-            <h4 className='desc mb-2 text-center'>Mide tu cuerpo, encuentra y publica recetas para una vida más sana</h4>
+            <h4 className='desc mb-2 text-center'>Encuenta o sube tu receta favorita</h4>
             {isAuthenticated ? (
           <>
             <LogoutButton />
