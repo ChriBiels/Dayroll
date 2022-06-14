@@ -24,11 +24,13 @@ function Login(){
               localStorage.setItem('avatar',getAvatar)
               localStorage.setItem('mv',getMailVeri)
               window.location.href= window.location.origin + '/home'
+              }else {
+                console.error("Error al obtener datos de usuario")
               }
           }
           load()
         }
-      })
+      },[isAuthenticated])
 
     return (
         <div className='bas'>
