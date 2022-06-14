@@ -284,13 +284,14 @@ export const upload = multer({
 //Añadir favoritos
 export const addFavs = async (req, res) => {
     let info={
-        nombrefav: req.body.nombre,
-        descripcionfav: req.body.descripcion,
-        tipoalimentofav: req.body.tipoalimento,
-        ingredientesfav: req.body.ingredientes,
-        alergenosfav: req.body.alergenos,
+        nombrefav: req.body.nombrefav,
+        descripcionfav: req.body.descripcionfav,
+        tipoalimentofav: req.body.tipoalimentofav,
+        ingredientesfav: req.body.ingredientesfav,
+        alergenosfav: req.body.alergenosfav,
         auth: req.body.auth,
-        imagenfav: req.body.imagen
+        imagenfav: req.body.imagenfav,
+        idrecetafav: req.body.idrecetafav
     }
     try {
         await Favs.create(info)
@@ -309,7 +310,7 @@ export const deleteFavs = async(req, res)=>{
     try {
         await Favs.destroy({
             where: { 
-                id: req.params.id,
+                idrecetafav: req.params.idrecetafav,
                 auth: req.params.auth
                }
         })
@@ -331,6 +332,21 @@ export const getUserFavs = async (req, res) => {
             }
         })
         res.json(receta)
+    } catch (error) {
+        res.json({message: error.message})
+    }
+}
+
+
+export const getRecetaFavExist = async (req, res) => {
+    try {
+        const receta = await Favs.findAll({
+            where:{
+                auth:req.params.auth,
+                idrecetafav:req.params.idrecetafav
+            }
+        })
+        res.json(receta[0])
     } catch (error) {
         res.json({message: error.message})
     }

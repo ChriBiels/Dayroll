@@ -5,6 +5,7 @@ import RecetaCard from '../components/RecetaCard';
 import Paginacion from '../components/Paginacion.js'
 import "../Styles/icoCard.css"
 import "../Styles/UserCard.css"
+import FavCard from '../components/FavCard';
 
 const ShowUserRecetas = () => {
 
@@ -13,7 +14,15 @@ const ShowUserRecetas = () => {
     const [numRecetas, setNumRecetas] = useState(0)
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const [recetasPorPagina]= useState(8)
+    const [recetasPorPagina]= useState(8) //Contenido paginas
+
+    const [displayInfo, setDisplay] = useState(1)
+    
+    //favs
+    const [favstars, setFavoritos] =useState ([])
+    const [paginaActual, setPaginaActual] = useState(1)
+    const [favsPorPagina] = useState(8)
+    const [loadingFav, setLoadingFav] = useState(false)
 
     const auth = localStorage.getItem('auser')
     const userName = localStorage.getItem('nick')
@@ -24,7 +33,6 @@ const ShowUserRecetas = () => {
         const getRecetasNum = async () => {
             const {data} = await axios.get(`${URI}/countRecetasUser/${auth}`)
             setNumRecetas(data)
-
         }
         getRecetasNum()
     }, [])
@@ -43,6 +51,8 @@ const ShowUserRecetas = () => {
     }
 
     const addProductHandler = async (e) => {
+        setDisplay(1)
+        console.log("Estoy en display 1")
         setLoading(true)
         const { data } = await axios.get(`${URI}/userRecetas/${auth}`)
         if(data !== '' && data !== undefined && data !== null && data !== 0)
@@ -50,6 +60,20 @@ const ShowUserRecetas = () => {
 
         setLoading(false)
     }
+
+    const displayFavs = async (e) => {
+      setDisplay(2)
+      console.log("Estoy en display 2")
+      setLoadingFav(true)
+      const { data } = await axios.get(URI+"/allRecetas/allFavs/"+auth)
+      console.log(data)
+      if(data !== '' && data !== undefined && data !== null && data !== 0)
+      setFavoritos(data)
+      else{
+        console.log("Error obtener datos")
+      }
+      setLoadingFav(false)
+  }
     
     if(loading && recetacion.length === 0){
         return <h2>Cargando . . .</h2>
@@ -59,6 +83,16 @@ const ShowUserRecetas = () => {
      const primeraPagina = ultimaPagina - recetasPorPagina
      const cantidadActual = recetacion.slice(primeraPagina, ultimaPagina)
      const numeroPaginas = Math.ceil(recetacion.length/recetasPorPagina)
+
+
+    if(loadingFav && favstars.length === 0){
+      return <h2> Cargando . . .</h2>
+    }
+     //Paginacion Favoritos
+    const ultimaPaginaFav = paginaActual * favsPorPagina
+    const primeraPaginaFav = ultimaPaginaFav - favsPorPagina
+    const cantidadActualFav = favstars.slice(primeraPaginaFav, ultimaPaginaFav)
+    const numeroPaginasFav = Math.ceil(favstars.length/cantidadActualFav)
 
 
     return (
@@ -76,11 +110,11 @@ const ShowUserRecetas = () => {
 
       
     </div>
-    <button className='space mt-1' onClick={addProductHandler}> Cargar mis recetas</button>
   </div>
-  
-
-        <div className='userRecipes d-flex flex-column justify-content-center align-content-center align-items-center w-75 pt-3'>
+      <button className='space mt-1' onClick={addProductHandler}> Cargar mis recetas</button>
+      <br></br>
+      <button className='space mt-1' onClick={displayFavs}> Cargar mis favoritos</button>
+       {displayInfo===1 ? (<div className='userRecipes d-flex flex-column justify-content-center align-content-center align-items-center w-75 pt-3'>
                
                {!loading ? (
           <>
@@ -106,7 +140,39 @@ const ShowUserRecetas = () => {
         ) : (
             <div></div>     
         )}
-               </div>
+               </div> ) : (<></>) }
+        
+
+
+     {displayInfo===2 ? (<div className='userRecipes d-flex flex-column justify-content-center align-content-center align-items-center w-75 pt-3'>
+               
+               {!loading ? (
+          <>
+            <Paginacion pages = {numeroPaginasFav} setCurrentPage={setPaginaActual}/>
+          </>
+        ) : (
+            <div></div>     
+        )}
+               <Row className='ro d-flex justify-content-center align-items-center'>
+                    {
+                        cantidadActualFav.map(favs => {
+
+                            return <Col md={6} lg="auto" sm={8} key={favs.id}>
+                                <FavCard className="dak" favs={favs}/>
+                            </Col>
+                        })
+                    }
+               </Row>
+               {!loading ? (
+          <>
+            <Paginacion pages = {numeroPaginasFav} setCurrentPage={setPaginaActual}/>
+          </>
+        ) : (
+            <div></div>     
+        )}
+               </div> ) : (<></>) }
+      
+      
       </div>
     )
 }

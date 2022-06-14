@@ -9,7 +9,8 @@ const Favs = db.define('favs', {
     tipoalimentofav: { type: DataTypes.STRING },
     ingredientesfav: { type: DataTypes.STRING },
     alergenosfav: { type: DataTypes.STRING },
-    auth: {type: DataTypes.STRING},
+    auth: { type: DataTypes.STRING },
+    idrecetafav: {type: DataTypes.INTEGER },
     imagenfav: { type: DataTypes.STRING },
     createdAt: { type: DataTypes.DATE },
 })

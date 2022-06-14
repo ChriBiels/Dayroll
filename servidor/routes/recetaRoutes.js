@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteReceta, getAllRecetas, getReceta, addReceta, updateReceta, upload, getAllUserRecetas, getAllFilterIngredientReceta, getAllFilterIntolerancia, showNumberUserRecetas, showCountAll, showCountIngrediente, getAllAlimentoIntolerancia, getLastReceta, getUserFavs, addFavs, deleteFavs } from "../controllers/RecetaController.js";
+import { deleteReceta, getAllRecetas, getReceta, addReceta, updateReceta, upload, getAllUserRecetas, getAllFilterIngredientReceta, getAllFilterIntolerancia, showNumberUserRecetas, showCountAll, showCountIngrediente, getAllAlimentoIntolerancia, getLastReceta, getUserFavs, addFavs, deleteFavs, getRecetaFavExist } from "../controllers/RecetaController.js";
 const recetaRouter = express.Router()
 
 recetaRouter.get('/allRecetas', getAllRecetas)
@@ -14,9 +14,10 @@ recetaRouter.get('/countIngrediente/:tipoalimento', showCountIngrediente)
 recetaRouter.get('/allRecetas/lastReceta', getLastReceta)
 
 //favs
+recetaRouter.get('/allRecetas/exist/:auth/:idrecetafav', getRecetaFavExist)
 recetaRouter.get('/allRecetas/allFavs/:auth', getUserFavs)
 recetaRouter.post('/addReceta/addFavs', addFavs)
-recetaRouter.delete('/allRecetas/deleteFav/:id/:auth', deleteFavs)
+recetaRouter.delete('/allRecetas/deleteFav/:idrecetafav/:auth', deleteFavs)
 //
 
 recetaRouter.post('/addReceta', upload, addReceta)

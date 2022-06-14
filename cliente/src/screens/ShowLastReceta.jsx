@@ -13,7 +13,6 @@ const ShowLastReceta = () => {
         const getRecetasNum = async () => {
             const {data} = await axios.get(URI)
             setRecetas(data)
-            console.log(data)
 
         }
         getRecetasNum()

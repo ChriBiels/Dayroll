@@ -1,10 +1,11 @@
 import {React, useState, useEffect } from 'react'
-import {Card, Modal, Button, Form } from 'react-bootstrap'
+import {Card, Modal, Button, Form, ToastBody } from 'react-bootstrap'
 import '../Styles/Card.css'
 import '../Styles/icoCard.css'
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import { MultiSelect } from 'react-multi-select-component';
+import {Toaster, toast} from 'react-hot-toast'
 
 
 
@@ -40,7 +41,7 @@ const RecetaCard = ({ recetas }) => {
     
     
     const auth = localStorage.getItem('auser')
-    let updButton, delButton
+    let updButton, delButton, favButton
     const [updateData, setUpdates] = useState({})
     const [updateDesc, setUpdateDesc] = useState({})
 
@@ -83,9 +84,17 @@ const RecetaCard = ({ recetas }) => {
     if(auth === recetas.auth ){
         updButton = <img className='icoCard' onClick={()=>handleShow()} src='https://i.imgur.com/A1ZvXJr.png'/>
         delButton = <img className='icoCard' onClick={()=>handleMostrarBorrado()} src='https://i.imgur.com/firZbTx.png'/>
+    
     } else {
         updButton = <div className='spaceNoUser'></div>
         delButton = <div className='spaceNoUser'></div>
+        
+    }
+
+    if(isAuthenticated){
+        favButton = <img className='icoCard' onClick={()=>addFavs()} src='https://i.imgur.com/C9B9kZY.png'/> 
+    }else {
+        favButton = <div className='spaceNoUser'></div>
     }
 
     const customAlimento = (selected, _options) => {
@@ -107,6 +116,29 @@ const RecetaCard = ({ recetas }) => {
           window.location.reload(false)    
           })
         }
+
+    async function addFavs(){
+        //Comprobar si el favorito agregado ya fue agregado antes
+        const { data } = await axios.get(URL+'allRecetas/exist/'+auth+'/'+recetas.id)
+
+    if(data.idrecetafav !== recetas.id){
+      await axios.post(URL+'addReceta/addFavs', {
+        auth: auth,
+        imagenfav: recetas.imagen,
+        tipoalimentofav: recetas.tipoalimento,
+        ingredientesfav: recetas.ingredientes,
+        alergenosfav: recetas.alergenos,
+        descripcionfav: recetas.descripcion,
+        nombrefav: recetas.nombre,
+        idrecetafav: recetas.id
+       })
+       toast.success("La receta "+recetas.nombre+ " ha sido añadida a favoritos")
+    }
+    else{
+        toast.error("Ya tenía esta receta añadida de favoritos")
+
+    }
+    }
     
 
     return (
@@ -218,8 +250,36 @@ const RecetaCard = ({ recetas }) => {
                  <Button className='actu' type='submit' onClick={updateReceta}>
                     Actualizar
                     </Button>
+                
             </Modal.Footer>
         </Modal>
+        <Toaster position='bottom-center' gutter={8}
+        toastOptions={{
+            success: {
+              duration: 4000,
+              style:{
+                background: '#00FF80',
+                color: '#fff'
+              },
+              theme: {
+                primary: 'green',
+                secondary: 'black',
+              },
+            },
+            error: {
+                duration: 4000,
+                style:{
+                    background: '#A30A04',
+                    color: '#fff'
+                },
+                theme: {
+                    primary: 'red',
+                    secondary: 'black',
+                }
+            }
+          }}
+            
+            />
         <div className='cardList d-flex justify-content-center align-items-center'>
             <div className='genericCard shadow-lg border-3 mb-4 rounded-3' style={{ width: '18rem' }}>
              <div className='bar d-flex flex-row justify-content-between mt-1'>
@@ -227,6 +287,7 @@ const RecetaCard = ({ recetas }) => {
                {recetas.createdAt}
                </span>
                 <span>
+                   {favButton}
                    {updButton}
                    {delButton}
                 </span>
