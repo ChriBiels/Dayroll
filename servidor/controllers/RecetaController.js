@@ -37,7 +37,9 @@ export const addReceta = async (req, res) => {
 //Mostrar todos los registros
 export const getAllRecetas = async (req, res) => {
     try{
-        const allRecetas = await Recetario.findAll()
+        const allRecetas = await Recetario.findAll({
+            order:[['id','desc']]
+        })
         res.json(allRecetas)
     }catch(error){
         res.json({message: error.message})
@@ -347,6 +349,21 @@ export const getRecetaFavExist = async (req, res) => {
             }
         })
         res.json(receta[0])
+    } catch (error) {
+        res.json({message: error.message})
+    }
+}
+
+
+//Numero recetas creadas por un usuario
+export const getNumFavs = async (req, res) => {
+    try {
+        const receta = await Favs.count({
+            where:{
+                auth: req.params.auth
+            }
+        })
+        res.json(receta)
     } catch (error) {
         res.json({message: error.message})
     }

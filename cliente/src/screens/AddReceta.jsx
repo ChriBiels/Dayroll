@@ -3,9 +3,10 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { imageStorage } from '../firebase/firebase'
 import { MultiSelect } from 'react-multi-select-component';
 import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form} from 'react-bootstrap'
 import {v4} from "uuid"
 import AlertSuccess from '../components/SuccessAlert';
+import { TipoAlimentoCombo, IntoleranciaCombo } from '../components/ComboBoxGeneric';
 import '../Styles/MenuRecetasPage.css'
 
 const AddReceta = ({ receta }) => {
@@ -19,37 +20,7 @@ const AddReceta = ({ receta }) => {
     const URI = 'http://localhost:8200/receta'
     const formData = new FormData()
     const[alert, setAlerta] = useState(false)
-    
-    const intolerancia = [
-        {label: "Gluten",value: "gluten"},
-        {label: "Lactosa",value: "lactosa"},
-        {label: "Histamina",value: "histamina"},
-        {label: "Fructosa",value: "fructosa"},
-        {label: "Sacarosa",value: "sacarosa"},
-    ]
     let selectbox = ''
-
-    const tipoAlimento = [
-        {label: "Exóticos",value: "Productos exoticos"},
-        {label: "Carne Roja",value: "Carne roja"},
-        {label: "Carne Blanca",value: "Carne blanca"},
-        {label: "Pescado",value: "Pescado"},
-        {label: "Moluscos",value: "Molusco"},
-        {label: "Tuberculos",value: "Tuberculos"},
-        {label: "Hongos",value: "Hongos"},
-        {label: "Verduras",value: "Verduras"},
-        {label: "Huevo",value: "Huevo"},
-        {label: "Pastas",value: "Pastas"},
-        {label: "Cereales",value: "Cereales"},
-        {label: "Legumbres",value: "Legumbres"},
-        {label: "Fruta",value: "Fruta"},
-        {label: "Hortalizas",value: "Hortalizas"},
-        {label: "Granos",value: "Granos"},
-        {label: "Lacteos",value: "Lacteos"},
-        {label: "Alcohol",value: "Alcohol"},
-        {label: "Aceite",value: "Aceite"},
-        {label: "Frutos secos",value: "Frutos secos"},
-    ]
     let tipoalimento = ''
 
     const mostrarAlerta = (mensaje, tipo)=>{
@@ -71,7 +42,6 @@ const AddReceta = ({ receta }) => {
 
         const auth = localStorage.getItem('auser')
 
-
     const addProductHandler = async (e) => {
         e.preventDefault()
         const imageReferencia = ref(imageStorage, `imagen/${imagen.name + v4()}`)
@@ -81,7 +51,6 @@ const AddReceta = ({ receta }) => {
            getDownloadURL(imageReferencia)
                 .then(  (url)=>{
                       setUrl(url);
-                      
                       formData.append('imagen', url)
                       console.log("Carga de imagen Completada")
                       formData.append('nombre', nombre)
@@ -155,7 +124,7 @@ const AddReceta = ({ receta }) => {
                     <Form.Group className="mb-3" controlId="tipoalimento">
                         <Form.Label>Contiene</Form.Label>
                         <MultiSelect
-                             options={tipoAlimento}
+                             options={TipoAlimentoCombo}
                              hasSelectAll={false}
                              value={selectAlimento}
                              onChange={setSelectAlimento}
@@ -178,7 +147,7 @@ const AddReceta = ({ receta }) => {
                     <Form.Group className="mb-3" controlId="alergenos">
                         <Form.Label>Alergenos</Form.Label>
                         <MultiSelect
-                             options={intolerancia}
+                             options={IntoleranciaCombo}
                              hasSelectAll={false}
                              value={selected}
                              onChange={setSelected}

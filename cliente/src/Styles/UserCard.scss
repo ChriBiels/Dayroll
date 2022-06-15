@@ -104,3 +104,13 @@
   background-color: $cremaAzul;
   border-radius: 20px;
 }
+
+.spac{
+  background-color: $cremaAzul;
+  color: #272133;
+  padding: 4px;
+}
+.spac:hover{
+background-color: $menuclickbackground;
+color: white
+}

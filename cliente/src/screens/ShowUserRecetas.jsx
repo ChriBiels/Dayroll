@@ -16,13 +16,14 @@ const ShowUserRecetas = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [recetasPorPagina]= useState(8) //Contenido paginas
 
-    const [displayInfo, setDisplay] = useState(1)
+    const [displayInfo, setDisplay] = useState(0)
     
     //favs
     const [favstars, setFavoritos] =useState ([])
     const [paginaActual, setPaginaActual] = useState(1)
     const [favsPorPagina] = useState(8)
     const [loadingFav, setLoadingFav] = useState(false)
+    const [numFavs, setNumFavs] = useState(0)
 
     const auth = localStorage.getItem('auser')
     const userName = localStorage.getItem('nick')
@@ -35,9 +36,15 @@ const ShowUserRecetas = () => {
             setNumRecetas(data)
         }
         getRecetasNum()
-    }, [])
 
-    
+        const getFavsNum = async () => {
+          const {data} = await axios.get(`${URI}/allRecetas/numFavs/${auth}`)
+          setNumFavs(data)
+      }
+        getFavsNum()
+    }, [numFavs, numRecetas])
+
+    console.log(auth)
     
 
     function isTrue(){
@@ -52,7 +59,6 @@ const ShowUserRecetas = () => {
 
     const addProductHandler = async (e) => {
         setDisplay(1)
-        console.log("Estoy en display 1")
         setLoading(true)
         const { data } = await axios.get(`${URI}/userRecetas/${auth}`)
         if(data !== '' && data !== undefined && data !== null && data !== 0)
@@ -63,7 +69,6 @@ const ShowUserRecetas = () => {
 
     const displayFavs = async (e) => {
       setDisplay(2)
-      console.log("Estoy en display 2")
       setLoadingFav(true)
       const { data } = await axios.get(URI+"/allRecetas/allFavs/"+auth)
       console.log(data)
@@ -105,15 +110,18 @@ const ShowUserRecetas = () => {
         Mis recetas: <span>{numRecetas}</span>
       </div>
       <div>
-        Mail: {isTrue()}
+        Favoritos: <span>{numFavs}</span>
         </div>
-
-      
     </div>
+      <div>
+        Mail: {isTrue()}
+      </div>
+
   </div>
-      <button className='space mt-1' onClick={addProductHandler}> Cargar mis recetas</button>
-      <br></br>
-      <button className='space mt-1' onClick={displayFavs}> Cargar mis favoritos</button>
+  <div className='buttccount d-flex flex-row justify-content-center'>
+      <button className='spac me-1 mb-2 rounded-3' onClick={addProductHandler}> Cargar mis recetas</button>
+      <button className='spac ms-1 mb-2 rounded-3' onClick={displayFavs}> Cargar mis favoritos</button>
+  </div>
        {displayInfo===1 ? (<div className='userRecipes d-flex flex-column justify-content-center align-content-center align-items-center w-75 pt-3'>
                
                {!loading ? (
@@ -133,14 +141,7 @@ const ShowUserRecetas = () => {
                         })
                     }
                </Row>
-               {!loading ? (
-          <>
-            <Paginacion pages = {numeroPaginas} setCurrentPage={setCurrentPage}/>
-          </>
-        ) : (
-            <div></div>     
-        )}
-               </div> ) : (<></>) }
+       </div> ) : (<></>) }
         
 
 
@@ -163,14 +164,7 @@ const ShowUserRecetas = () => {
                         })
                     }
                </Row>
-               {!loading ? (
-          <>
-            <Paginacion pages = {numeroPaginasFav} setCurrentPage={setPaginaActual}/>
-          </>
-        ) : (
-            <div></div>     
-        )}
-               </div> ) : (<></>) }
+      </div> ) : (<></>) }
       
       
       </div>

@@ -1,11 +1,12 @@
 import {React, useState, useEffect } from 'react'
-import {Card, Modal, Button, Form, ToastBody } from 'react-bootstrap'
+import {Card, Modal, Button, Form} from 'react-bootstrap'
 import '../Styles/Card.css'
 import '../Styles/icoCard.css'
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import { MultiSelect } from 'react-multi-select-component';
 import {Toaster, toast} from 'react-hot-toast'
+import { TipoAlimentoCombo, IntoleranciaCombo } from './ComboBoxGeneric';
 
 
 
@@ -39,41 +40,10 @@ const RecetaCard = ({ recetas }) => {
         load()
     },[])
     
-    
     const auth = localStorage.getItem('auser')
     let updButton, delButton, favButton
     const [updateData, setUpdates] = useState({})
     const [updateDesc, setUpdateDesc] = useState({})
-
-    const intolerancia = [
-        {label: "Gluten",value: "gluten"},
-        {label: "Lactosa",value: "lactosa"},
-        {label: "Histamina",value: "histamina"},
-        {label: "Fructosa",value: "fructosa"},
-        {label: "Sacarosa",value: "sacarosa"},
-    ]
-
-    const tipoAlimento = [
-        {label: "Exóticos",value: "Productos exoticos"},
-        {label: "Carne Roja",value: "Carne roja"},
-        {label: "Carne Blanca",value: "Carne blanca"},
-        {label: "Pescado",value: "Pescado"},
-        {label: "Moluscos",value: "Molusco"},
-        {label: "Tuberculos",value: "Tuberculos"},
-        {label: "Hongos",value: "Hongos"},
-        {label: "Verduras",value: "Verduras"},
-        {label: "Huevo",value: "Huevo"},
-        {label: "Pastas",value: "Pastas"},
-        {label: "Cereales",value: "Cereales"},
-        {label: "Legumbres",value: "Legumbres"},
-        {label: "Fruta",value: "Fruta"},
-        {label: "Hortalizas",value: "Hortalizas"},
-        {label: "Granos",value: "Granos"},
-        {label: "Lacteos",value: "Lacteos"},
-        {label: "Alcohol",value: "Alcohol"},
-        {label: "Aceite",value: "Aceite"},
-        {label: "Frutos secos",value: "Frutos secos"},
-    ]
 
     function deleteReceta(){
         axios.delete(URL+recetas.id+'/'+auth).then(() =>{
@@ -84,16 +54,13 @@ const RecetaCard = ({ recetas }) => {
     if(auth === recetas.auth ){
         updButton = <img className='icoCard' onClick={()=>handleShow()} src='https://i.imgur.com/A1ZvXJr.png'/>
         delButton = <img className='icoCard' onClick={()=>handleMostrarBorrado()} src='https://i.imgur.com/firZbTx.png'/>
+        favButton = <img className='icoCard' onClick={()=>addFavs()} src='https://i.imgur.com/C9B9kZY.png'/>
     
+    }else if(isAuthenticated && auth !== recetas.auth){
+        favButton = <img className='icoCard' onClick={()=>addFavs()} src='https://i.imgur.com/C9B9kZY.png'/> 
     } else {
         updButton = <div className='spaceNoUser'></div>
         delButton = <div className='spaceNoUser'></div>
-        
-    }
-
-    if(isAuthenticated){
-        favButton = <img className='icoCard' onClick={()=>addFavs()} src='https://i.imgur.com/C9B9kZY.png'/> 
-    }else {
         favButton = <div className='spaceNoUser'></div>
     }
 
@@ -204,7 +171,7 @@ const RecetaCard = ({ recetas }) => {
                     <Form.Group className="mb-3" controlId="tipoalimento">
                         <Form.Label>[x]Contiene</Form.Label>
                         <MultiSelect
-                             options={tipoAlimento}
+                             options={TipoAlimentoCombo}
                              hasSelectAll={false}
                              value={selectAlimento}
                              disabled={true}
@@ -231,7 +198,7 @@ const RecetaCard = ({ recetas }) => {
                     <Form.Group className="mb-3" controlId="alergenos">
                         <Form.Label> [x]Alergenos </Form.Label>
                         <MultiSelect
-                             options={intolerancia}
+                             options={IntoleranciaCombo}
                              hasSelectAll={false}
                              value={selected}
                              disabled={true}

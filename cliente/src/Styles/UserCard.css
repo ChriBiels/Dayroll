@@ -122,4 +122,15 @@ body {
   background-color: #e5f8ff;
   border-radius: 20px;
 }
+
+.spac {
+  background-color: #e5f8ff;
+  color: #272133;
+  padding: 4px;
+}
+
+.spac:hover {
+  background-color: #3f5b53;
+  color: white;
+}
 /*# sourceMappingURL=UserCard.css.map */

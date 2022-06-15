@@ -33,14 +33,14 @@ function Login(){
       },[isAuthenticated])
 
     return (
-        <div className='bas'>
+        <div className='bas h-100'>
         <div className=''>
             <video autoPlay loop muted className='wallpaper w-100 h-100 position-absolute'>
                 <source src={Wall} type="video/mp4"></source>
             </video>
         <div id='container'className='container d-flex border-0'>
         <img className='imga w-25 h-25' src="https://i.imgur.com/uYYuxHa.png"/>
-            <h4 className='desc mb-2 text-center'>Encuenta o sube tu receta favorita</h4>
+            <h4 className='desc mb-2 text-center'>Encuentra o sube tu receta favorita</h4>
             {isAuthenticated ? (
           <>
             <LogoutButton />

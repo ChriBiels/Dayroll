@@ -5,6 +5,7 @@ import RecetaCard from '../components/RecetaCard';
 import { MultiSelect } from 'react-multi-select-component';
 import Paginacion from '../components/Paginacion.js'
 import '../Styles/MenuRecetasPage.css'
+import { IntoleranciaCombo, TipoAlimentoCombo } from '../components/ComboBoxGeneric';
 
 const ShowRecetas = () => {
 
@@ -13,39 +14,12 @@ const ShowRecetas = () => {
     const [selected, setSelected] = useState([])
     const [selectAlimento, setSelectAlimento] = useState([])
     const [loading, setLoading] = useState(false)
+    const [numAllRecetas, setNumAllRecetas] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [recetasPorPagina]= useState(8)
 
-    const intolerancia = [
-        {label: "Gluten",value: "gluten"},
-        {label: "Lactosa",value: "lactosa"},
-        {label: "Histamina",value: "histamina"},
-        {label: "Fructosa",value: "fructosa"},
-        {label: "Sacarosa",value: "sacarosa"},
-    ]
+    
     let intolerance = ''
-
-    const tipoAlimento = [
-        {label: "Exóticos",value: "Productos exoticos"},
-        {label: "Carne Roja",value: "Carne roja"},
-        {label: "Carne Blanca",value: "Carne blanca"},
-        {label: "Pescado",value: "Pescado"},
-        {label: "Moluscos",value: "Molusco"},
-        {label: "Tuberculos",value: "Tuberculos"},
-        {label: "Hongos",value: "Hongos"},
-        {label: "Verduras",value: "Verduras"},
-        {label: "Huevo",value: "Huevo"},
-        {label: "Pastas",value: "Pastas"},
-        {label: "Cereales",value: "Cereales"},
-        {label: "Legumbres",value: "Legumbres"},
-        {label: "Fruta",value: "Fruta"},
-        {label: "Hortalizas",value: "Hortalizas"},
-        {label: "Granos",value: "Granos"},
-        {label: "Lacteos",value: "Lacteos"},
-        {label: "Alcohol",value: "Alcohol"},
-        {label: "Aceite",value: "Aceite"},
-        {label: "Frutos secos",value: "Frutos secos"},
-    ]
     let tipoalimento = ''
 
     useEffect(() => {
@@ -56,7 +30,13 @@ const ShowRecetas = () => {
             setLoading(false)
         }
         getRecetasData()
-    }, [])
+
+        const getAllNumRecetas = async () => {
+            const {data} = await axios.get(`${URI}/contarTodo/all`)
+            setNumAllRecetas(data)
+        }
+          getAllNumRecetas()
+    }, [numAllRecetas])
 
 
     const defaultAlimento = (selected, _options) => {
@@ -123,7 +103,7 @@ const ShowRecetas = () => {
         <div className='filterbar d-flex flex-row align-content-center align-items-center justify-content-center '>
                <button className='filterbutton' onClick={comprobar}>Filtrar</button>
                <MultiSelect className='t-a w-25 me-1'
-                             options={tipoAlimento}
+                             options={TipoAlimentoCombo}
                              hasSelectAll={false}
                              value={selectAlimento}
                              onChange={setSelectAlimento}
@@ -132,7 +112,7 @@ const ShowRecetas = () => {
                              
                          />
                 <MultiSelect className='t-i w-25 ms-1'
-                             options={intolerancia}
+                             options={IntoleranciaCombo}
                              hasSelectAll={false}
                              value={selected}
                              onChange={setSelected}
@@ -150,7 +130,7 @@ const ShowRecetas = () => {
         ) : (
             <div></div>     
         )}
-               <h1 className='text-center'>Recetario</h1>
+               <h1 className='text-center'>Recetario</h1> <span>Recetas registradas: {numAllRecetas}</span>
                <Row className='ro d-flex justify-content-center align-items-center'>
                     {
                         cantidadActual.map(recetas => {
@@ -161,14 +141,6 @@ const ShowRecetas = () => {
                         })
                     }
                </Row>
-               {!loading ? (
-          <>
-            <Paginacion pages = {numeroPaginas} setCurrentPage={setCurrentPage}/>
-          </>
-        ) : (
-            <div></div>     
-        )}
-           
            </Container>
            
 

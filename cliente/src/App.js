@@ -11,7 +11,6 @@ import ShowUserRecetas from './screens/ShowUserRecetas'
 import FooterWeb from './components/Footer';
 
 
-
 function App() {
   const location = useLocation()
 
