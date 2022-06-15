@@ -9,7 +9,6 @@ import {Toaster, toast} from 'react-hot-toast'
 import { TipoAlimentoCombo, IntoleranciaCombo } from './ComboBoxGeneric';
 
 
-
 const RecetaCard = ({ recetas }) => {
     const [show, setShow] = useState(false);
     const [selected, setSelected] = useState([])
@@ -102,7 +101,7 @@ const RecetaCard = ({ recetas }) => {
        toast.success("La receta "+recetas.nombre+ " ha sido añadida a favoritos")
     }
     else{
-        toast.error("Ya tenía esta receta añadida de favoritos")
+        toast.error("La receta ya existe en favoritos")
 
     }
     }

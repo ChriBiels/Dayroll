@@ -55,9 +55,13 @@
     align-items: center;
     padding: .25rem;
   }
+
+  .nav a:hover{
+    color: rgb(183, 246, 255)
+  }
   
   .nav li.active {
-    background-color: #555;
+    background-color: $menubackgroundstop
   }
   
   .nav li:hover {

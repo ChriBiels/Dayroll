@@ -8,7 +8,6 @@ import { Toaster, toast } from 'react-hot-toast'
 
 
 const FavCard = ({ favs }) => {
-    console.log("Patatas " +favs)
     const {user,isAuthenticated} = useAuth0()
     const URI = "http://localhost:8200/receta/"
     let delButton
@@ -38,13 +37,12 @@ const FavCard = ({ favs }) => {
             window.location.reload(false)
         }).catch((err) => {
             toast.error("Error al eliminar "+favs.nombre+ " de favoritos")
-            console.log(err)
         }) 
     }
 
 
     if(isAuthenticated ){
-        delButton = <img className='icoCard' onClick={()=>borrarFav()} src='https://i.imgur.com/firZbTx.png'/>
+        delButton = <img className='icoCard' onClick={()=>borrarFav()} src='https://i.imgur.com/aVBlmlE.png'/>
     
     } else {
         delButton = <div className=''></div>
@@ -88,7 +86,7 @@ const FavCard = ({ favs }) => {
             <div className='genericCard shadow-lg border-3 mb-4 rounded-3' style={{ width: '18rem' }}>
              <div className='bar d-flex flex-row justify-content-between mt-1'>
                 <span className='fechaCreada h6'>
-               {favs.createdAt}
+               Favorito desde: {favs.createdAt}
                </span>
                <span>{delButton}</span>
                 </div>

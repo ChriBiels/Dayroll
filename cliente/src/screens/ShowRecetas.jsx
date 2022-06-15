@@ -6,6 +6,7 @@ import { MultiSelect } from 'react-multi-select-component';
 import Paginacion from '../components/Paginacion.js'
 import '../Styles/MenuRecetasPage.css'
 import { IntoleranciaCombo, TipoAlimentoCombo } from '../components/ComboBoxGeneric';
+import FooterWeb from '../components/Footer';
 
 const ShowRecetas = () => {
 
@@ -18,7 +19,7 @@ const ShowRecetas = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [recetasPorPagina]= useState(8)
 
-    
+
     let intolerance = ''
     let tipoalimento = ''
 
@@ -52,7 +53,6 @@ const ShowRecetas = () => {
 
     selectAlimento.forEach(element => {
             tipoalimento = tipoalimento + element.value+","
-            console.log(tipoalimento)
         })
 
     selected.forEach(element => {
@@ -145,6 +145,7 @@ const ShowRecetas = () => {
            
 
            </div>
+           <FooterWeb/>
         </>
     )
 }

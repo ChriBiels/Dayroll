@@ -1,16 +1,14 @@
 //Esto pertenece al z2- TutoComponentesReact.md
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import ShowLastReceta from '../screens/ShowLastReceta';
-import Alert from './ErrorAlert'
 import Galeria from './GaleriaCarousel'
 import '../Styles/Home.css'
 import { useAuth0 } from "@auth0/auth0-react";
+import FooterWeb from './Footer';
 
 function Home({handleSubmit, ...props}){ //Creas la función general
-    const[alert, setAlerta] = useState(false)
-    const [selected, setSelected] = useState([])
     //Guardar Verificacion
     const {user,isAuthenticated} = useAuth0()
 
@@ -31,18 +29,7 @@ function Home({handleSubmit, ...props}){ //Creas la función general
         }
         load()
     },[])
-    const numuser = localStorage.getItem('auser')
-
-    const mostrarAlerta = (mensaje, tipo)=>{
-        setAlerta({
-            msg: mensaje,
-            type: tipo
-        })
-        setTimeout(() => {
-            setAlerta(false)
-        }, 3000)
-    }
-
+ 
 
     return (
 
@@ -91,7 +78,7 @@ function Home({handleSubmit, ...props}){ //Creas la función general
 
 
   </div>
-
+  <FooterWeb/>
         </div>
   
     );

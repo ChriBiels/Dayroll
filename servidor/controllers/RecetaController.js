@@ -20,8 +20,6 @@ export const addReceta = async (req, res) => {
         imagen: req.body.imagen
     }
     try {
-        console.log("----------------------------")
-        console.log(info)
         await Recetario.create(info)
         res.json({
             "message":"Las recetas se han guardado"

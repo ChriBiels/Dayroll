@@ -8,7 +8,7 @@ export default function NavBar() {
     return (
     <nav className='nav'>
         <Link to="/home" className='site-title  '><img className='logo d-none d-lg-block d-xl-block d-md-block' src='https://i.imgur.com/ZeAqJgn.png'/>Dayroll</Link>
-        <ul>
+        <ul className='menu'>
         <CustomLink to="/home">Home</CustomLink>
         <CustomLink to="/recipes">Recetas</CustomLink>
         {isAuthenticated ? <CustomLink to="/account">Cuenta</CustomLink>: <></> }
@@ -32,7 +32,7 @@ function CustomLink({ to, children, ...props }) {
   return (
     <li className={isActive ? "active" : ""}>
       <Link to={to} {...props}>
-        {children}
+        <a>{children}</a>
       </Link>
     </li>
   )

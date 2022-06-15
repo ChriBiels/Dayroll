@@ -6,6 +6,7 @@ import Paginacion from '../components/Paginacion.js'
 import "../Styles/icoCard.css"
 import "../Styles/UserCard.css"
 import FavCard from '../components/FavCard';
+import FooterWeb from '../components/Footer';
 
 const ShowUserRecetas = () => {
 
@@ -43,8 +44,6 @@ const ShowUserRecetas = () => {
       }
         getFavsNum()
     }, [numFavs, numRecetas])
-
-    console.log(auth)
     
 
     function isTrue(){
@@ -61,9 +60,8 @@ const ShowUserRecetas = () => {
         setDisplay(1)
         setLoading(true)
         const { data } = await axios.get(`${URI}/userRecetas/${auth}`)
-        if(data !== '' && data !== undefined && data !== null && data !== 0)
-        setRecetas(data)
-
+        if(data !== '' && data !== undefined && data !== null && data !== 0){
+        setRecetas(data)}
         setLoading(false)
     }
 
@@ -71,12 +69,8 @@ const ShowUserRecetas = () => {
       setDisplay(2)
       setLoadingFav(true)
       const { data } = await axios.get(URI+"/allRecetas/allFavs/"+auth)
-      console.log(data)
-      if(data !== '' && data !== undefined && data !== null && data !== 0)
-      setFavoritos(data)
-      else{
-        console.log("Error obtener datos")
-      }
+      if(data !== ' ' && data !== undefined && data !== null && data !== 0){
+      setFavoritos(data)}
       setLoadingFav(false)
   }
     
@@ -101,6 +95,8 @@ const ShowUserRecetas = () => {
 
 
     return (
+      <>
+      
         <div className='midder d-flex flex-column justify-content-center align-content-center align-items-center'>
           <div className="carde w-100">
     <img src={avatar} alt="Person" className="card__image"/>
@@ -168,6 +164,8 @@ const ShowUserRecetas = () => {
       
       
       </div>
+      <FooterWeb/>
+      </>
     )
 }
 

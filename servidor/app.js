@@ -2,14 +2,12 @@ import express from "express";
 import cors from 'cors'
 //Conexion bd
 import db from "./database/database.js";
-import homeRoutes from './routes/routes.js'
 import recetaRoutes from './routes/recetaRoutes.js'
 const app = express()
 app.use( cors() )
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 
-app.use('/stats', homeRoutes)
 
 //Router
 app.use('/receta', recetaRoutes)

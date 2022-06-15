@@ -8,7 +8,6 @@ import AddReceta from './screens/AddReceta';
 import ShowRecetas from './screens/ShowRecetas';
 import Login from './components/Login';
 import ShowUserRecetas from './screens/ShowUserRecetas'
-import FooterWeb from './components/Footer';
 
 
 function App() {
@@ -27,9 +26,6 @@ function App() {
         <Route path="/showrecipes" element={<ShowRecetas/>}/>
         <Route path="*" element={<ErrorLoad/>}/>
       </Routes>
-    </div>
-    <div className='footer' >
-    <FooterWeb/>
     </div>
     </div>
   );

@@ -77,8 +77,12 @@ body {
   padding: .25rem;
 }
 
+.nav a:hover {
+  color: #b7f6ff;
+}
+
 .nav li.active {
-  background-color: #555;
+  background-color: #435a5f;
 }
 
 .nav li:hover {
