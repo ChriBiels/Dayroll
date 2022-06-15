@@ -50,7 +50,10 @@ export const getAllUserRecetas = async (req, res) => {
         const receta = await Recetario.findAll({
             where:{
                 auth: req.params.auth
-            }
+            },
+            order:[
+                ['id','desc']
+            ]
         })
         res.json(receta)
     } catch (error) {
