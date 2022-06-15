@@ -32,6 +32,7 @@ const ShowUserRecetas = () => {
 
 
     useEffect(() => {
+      
         const getRecetasNum = async () => {
             const {data} = await axios.get(`${URI}/countRecetasUser/${auth}`)
             setNumRecetas(data)
@@ -97,7 +98,7 @@ const ShowUserRecetas = () => {
     return (
       <>
       
-        <div className='midder d-flex flex-column justify-content-center align-content-center align-items-center'>
+       {auth !== null && auth !== "" && auth !== undefined && auth !==0 ? (  <div className='midder d-flex flex-column justify-content-center align-content-center align-items-center'>
           <div className="carde w-100">
     <img src={avatar} alt="Person" className="card__image"/>
     <p className="card__name">{userName}</p>
@@ -163,10 +164,12 @@ const ShowUserRecetas = () => {
       </div> ) : (<></>) }
       
       
-      </div>
+      </div>): ( <div className='stophere d-flex flex-column justify-content-center text-center'>
+        <h3>Se ha producido un error al recopilar los datos de la cuenta . . .</h3>
+      </div>)}
       <FooterWeb/>
       </>
-    )
+    ) 
 }
 
 export default ShowUserRecetas
